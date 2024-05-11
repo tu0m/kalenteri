@@ -25,7 +25,8 @@ export default function CalendarGrid({ date }) {
 
     // first row
     for (let day of getWeekdays()) {
-        gridContent.push(<div><h2 className='font-s'>{day}</h2></div>)
+        gridContent.push(<div key={day}><h2 className='font-s'>{day}</h2></div>)
+    }
     }
 
     // prev month
