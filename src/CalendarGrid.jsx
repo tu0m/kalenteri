@@ -56,9 +56,15 @@ export default function CalendarGrid({ date }) {
     function GridCell({ date, isPassive = null, isToday = null }) {
 
         return (
-            <div className={isPassive ? 'passive' : null} id={date}>
-                <div>
-                    <h2 style={{ fontWeight: isToday ? "bold" : null }}>{date.match(/\d+$/)[0].replace(/^0+/, '')}</h2>
+            <div id={date} className={`${isToday ? 'today' : ''}${isPassive ? 'passive' : ''}`}>
+                <div className='top'>
+                    <h2>{date.match(/\d+$/)[0].replace(/^0+/, '')}</h2>
+                </div>
+                <div className='mid'>
+                    {/* nimipäivä and holiday here */}
+                </div>
+                <div className='btm'>
+                    {/* weather and week no here */}
                 </div>
             </div>
         )
