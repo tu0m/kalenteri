@@ -23,6 +23,25 @@ export default function CalendarGrid({ date }) {
         return days.map(date => formatter.format(date));
     }
 
+    // https://www.geeksforgeeks.org/calculate-current-week-number-in-javascript/
+    function getWeekNumber(date) {
+        const currentDate = new Date(date);
+        const januaryFirst = new Date(currentDate.getFullYear(), 0, 1);
+        const daysToNextMonday = (januaryFirst.getDay() === 1) ? 0 : (7 - januaryFirst.getDay()) % 7;
+        const nextMonday = new Date(currentDate.getFullYear(), 0, januaryFirst.getDate() + daysToNextMonday);
+
+        return (currentDate < nextMonday)
+            ? 52
+            : (currentDate > nextMonday
+                ? Math.ceil((currentDate - nextMonday) / (24 * 3600 * 1000) / 7)
+                : 1);
+    }
+
+    // TODO: add support for sundays as well
+    function isMonday(date) {
+        return new Date(date).getDay() == 1
+    }
+
     // first row
     for (let day of getWeekdays()) {
         gridContent.push(<div key={day}><h2 className='font-s'>{day}</h2></div>)
@@ -34,29 +53,50 @@ export default function CalendarGrid({ date }) {
 
     // prev month
     for (let i = currMonthStart - 1; i >= 0; i--) {
-        let prevMonthDate = `${month == 0 ? year - 1 : year}-${twoDigits(month == 1 ? 12 : month - 1)}-${twoDigits(daysInPrevMonth - i)}`
+        const prevMonthDate = `${month == 0 ? year - 1 : year}-${twoDigits(month == 1 ? 12 : month - 1)}-${twoDigits(daysInPrevMonth - i)}`
+        const props = {
+            key: prevMonthDate,
+            date: prevMonthDate,
+            isPassive: true,
+            ...(isMonday(prevMonthDate) && { weekNo: getWeekNumber(prevMonthDate) })
+        }
+
         gridContent.push(
-            <GridCell key={prevMonthDate} date={prevMonthDate} isPassive='true'></GridCell>
+            <GridCell {...props}></GridCell>
         )
     }
 
     // curr month
     for (let i = 1; i <= daysInCurrMonth; i++) {
-        let currMonthDate = `${year}-${twoDigits(month)}-${twoDigits(i)}`
+        const currMonthDate = `${year}-${twoDigits(month)}-${twoDigits(i)}`
+        const props = {
+            key: currMonthDate,
+            date: currMonthDate,
+            isToday: currMonthDate == date,
+            ...(isMonday(currMonthDate) && { weekNo: getWeekNumber(currMonthDate) })
+        }
+
         gridContent.push(
-            <GridCell key={currMonthDate} date={currMonthDate} isToday={currMonthDate == date}></GridCell>
+            <GridCell {...props}></GridCell>
         )
     }
 
     //next month
     for (let i = 1; gridContent.length < gridSize; i++) {
-        let nextMonthDate = `${month == 12 ? year + 1 : year}-${twoDigits(month == 12 ? 1 : month + 1)}-${twoDigits(i)}`
+        const nextMonthDate = `${month == 12 ? year + 1 : year}-${twoDigits(month == 12 ? 1 : month + 1)}-${twoDigits(i)}`
+        const props = {
+            key: nextMonthDate,
+            date: nextMonthDate,
+            isPassive: true,
+            ...(isMonday(nextMonthDate) && { weekNo: getWeekNumber(nextMonthDate) })
+        }
+
         gridContent.push(
-            <GridCell key={nextMonthDate} date={nextMonthDate} isPassive='true'></GridCell>
+            <GridCell {...props}></GridCell>
         )
     }
 
-    function GridCell({ date, isPassive = null, isToday = null }) {
+    function GridCell({ date, isPassive = false, isToday = false, weekNo = null }) {
 
         return (
             <div id={date} className={`${isToday ? 'today' : ''}${isPassive ? 'passive' : ''}`}>
@@ -66,8 +106,9 @@ export default function CalendarGrid({ date }) {
                 <div className='mid'>
                     {/* nimipäivä and holiday here */}
                 </div>
-                <div className='btm'>
+                <div className='btm font-s'>
                     {/* weather and week no here */}
+                    {weekNo && <p>{weekNo}</p>}
                 </div>
             </div>
         )
