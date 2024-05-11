@@ -130,15 +130,16 @@ header {
 /* GRID BORDERS */
 
 #grid>div {
+  display: flex;
+  flex-direction: column;
+
   box-sizing: border-box;
   padding: var(--pad-m);
 }
 
 /* first row */
 #grid>div:nth-child(-n+7) {
-  display: flex;
-  justify-content: center;
-
+  align-items: center;
   padding: var(--pad-s);
 }
 
@@ -161,4 +162,12 @@ header {
 
 .today {
   font-weight: bold;
+  color: var(--color-bg);
+  background-color: #333;
+}
+
+/* GRID CELLS: TOP MID BTM */
+
+.mid {
+  flex: 1;
 }
