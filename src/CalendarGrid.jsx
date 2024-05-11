@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 
 export default function CalendarGrid({ date }) {
 
-    const year = date.slice(0, 4)
-    const month = date.slice(5, 7)
+    const year = Number(date.slice(0, 4))
+    const month = Number(date.slice(5, 7))
     // const day = date.slice(8, 10)
 
     const currMonthStart = [6, 0, 1, 2, 3, 4, 5][new Date(year, month - 1, 1).getDay()] // shift array so that monday is 0 and sunday is 6
