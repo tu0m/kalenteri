@@ -27,11 +27,14 @@ export default function CalendarGrid({ date }) {
     for (let day of getWeekdays()) {
         gridContent.push(<div key={day}><h2 className='font-s'>{day}</h2></div>)
     }
+
+    function twoDigits(value) {
+        return value.toString().padStart(2, 0)
     }
 
     // prev month
     for (let i = currMonthStart - 1; i >= 0; i--) {
-        let prevMonthDate = `${month == 0 ? year - 1 : year}-${month == 1 ? 12 : month - 1}-${(daysInPrevMonth - i).toString().padStart(2, 0)}`
+        let prevMonthDate = `${month == 0 ? year - 1 : year}-${twoDigits(month == 1 ? 12 : month - 1)}-${twoDigits(daysInPrevMonth - i)}`
         gridContent.push(
             <GridCell key={prevMonthDate} date={prevMonthDate} isPassive='true'></GridCell>
         )
@@ -39,7 +42,7 @@ export default function CalendarGrid({ date }) {
 
     // curr month
     for (let i = 1; i <= daysInCurrMonth; i++) {
-        let currMonthDate = `${year}-${month}-${i.toString().padStart(2, 0)}`
+        let currMonthDate = `${year}-${twoDigits(month)}-${twoDigits(i)}`
         gridContent.push(
             <GridCell key={currMonthDate} date={currMonthDate} isToday={currMonthDate == date}></GridCell>
         )
@@ -47,7 +50,7 @@ export default function CalendarGrid({ date }) {
 
     //next month
     for (let i = 1; gridContent.length < gridSize; i++) {
-        let nextMonthDate = `${month == 12 ? year + 1 : year}-${month == 12 ? 1 : month}-${i}`
+        let nextMonthDate = `${month == 12 ? year + 1 : year}-${twoDigits(month == 12 ? 1 : month + 1)}-${twoDigits(i)}`
         gridContent.push(
             <GridCell key={nextMonthDate} date={nextMonthDate} isPassive='true'></GridCell>
         )
