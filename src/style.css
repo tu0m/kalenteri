@@ -158,3 +158,7 @@ header {
   color: var(--color-passive-text);
   background-color: var(--color-passive-bg);
 }
+
+.today {
+  font-weight: bold;
+}
