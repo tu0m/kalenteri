@@ -71,7 +71,7 @@ h1 {
 
   #root {
     flex-direction: row;
-    min-height: 800px;
+    min-height: 360px;
   }
 }
 
