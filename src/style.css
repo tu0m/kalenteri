@@ -10,13 +10,13 @@
   --color-passive-text: #cecece;
 
   /* https://clamp.vittoretrivi.dev/ */
-  --pad-s: clamp(0.33rem, 0.165rem + 0.66vw, 0.66rem);
-  --pad-m: clamp(0.5rem, 0.25rem + 1vw, 1rem);
-  --pad-l: clamp(1.5rem, 0.75rem + 3vw, 3rem);
+  --pad-s: clamp(0.33rem, 0.165rem + 0.66vmin, 0.66rem);
+  --pad-m: clamp(0.5rem, 0.25rem + 1vmin, 1rem);
+  --pad-l: clamp(1.5rem, 0.75rem + 3vmin, 3rem);
 
-  --font-s: clamp(0.8rem, 0.575rem + 0.9vw, 1.25rem);
-  --font-m: clamp(1rem, 0.5rem + 2vw, 2rem);
-  --font-l: clamp(1.5rem, 0.7500rem + 3.0000vw, 3rem);
+  --font-s: clamp(0.8rem, 0.575rem + 0.9vmin, 1.25rem);
+  --font-m: clamp(1rem, 0.5rem + 2vmin, 2rem);
+  --font-l: clamp(1.5rem, 0.7500rem + 3.0000vmin, 3rem);
 }
 
 html,
