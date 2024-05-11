@@ -24,7 +24,7 @@ body {
   padding: 0;
   margin: 0;
 
-  height: 100vh;
+  height: 100%;
 }
 
 /* TEXT STYLES */
@@ -63,14 +63,15 @@ h1 {
   flex-direction: column;
 
   height: 100%;
-  min-width: 393px;
+  min-width: 360px;
 }
 
-@media (min-aspect-ratio: 0.78) {
+@media (min-aspect-ratio: 0.82) {
   /* landscape layout */
 
   #root {
     flex-direction: row;
+    min-height: 800px;
   }
 }
 
@@ -97,7 +98,7 @@ h1 {
 
   background-color: var(--color-bg);
 
-  aspect-ratio: 0.78;
+  aspect-ratio: 0.82;
 
   /* https://shadows.brumm.af/ */
   box-shadow:
